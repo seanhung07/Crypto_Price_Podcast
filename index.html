@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">  
+    <title>Price Podcast</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>Price Podcast</header>
+      <form action="#">
+        <div class="row"> 
+            <div>
+                <h1>Price:</h1>
+                <h1 id="price"></h1>
+            </div>
+            <label>Select Coin</label>
+            <div>
+                <select id="tick" onChange="update()">
+                    <option>BTCUSDT</option>
+                    <option>ETHUSDT</option>
+                    <option>FTTUSDT</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <label>Set Interval (seconds)</label>
+            <div style="padding-bottom: 20px;">
+                <input id="interval" type="text" size="43" id="searchTxt" style="display: inline;" value="5" />
+            </div>
+          <label>Select Voice</label>
+          <div>
+            <select id="outer"></select>
+          </div>
+        </div>
+        <button>Start</button>
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+
+  </body>
+</html>
