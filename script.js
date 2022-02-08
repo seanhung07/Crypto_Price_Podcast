@@ -56,6 +56,7 @@ speechBtn.addEventListener("click", e =>{
         }
         if(start == 0){
             clearInterval(interval)
+            WebSocket.close();
             buttonvalue.innerText = "Start"
         }
         }, sec*1000);
