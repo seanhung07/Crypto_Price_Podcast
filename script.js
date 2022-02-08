@@ -2,9 +2,10 @@ const textarea = document.getElementById("price"),
 voiceList = document.getElementById("outer"),
 speechBtn = document.querySelector("button");
 let synth = speechSynthesis
+let ws = ""
 function getPrice(coin){
     search = coin.toLowerCase()
-    let ws = new WebSocket(`wss://stream.binance.com:9443/ws/${search}@trade`)
+    ws = new WebSocket(`wss://stream.binance.com:9443/ws/${search}@trade`)
     let price = document.getElementById('price')
     ws.onmessage = (event) =>{
     let priceObj = JSON.parse(event.data)
@@ -56,8 +57,8 @@ speechBtn.addEventListener("click", e =>{
         }
         if(start == 0){
             clearInterval(interval)
-            WebSocket.close();
             buttonvalue.innerText = "Start"
+            ws.close();
         }
         }, sec*1000);
 });
