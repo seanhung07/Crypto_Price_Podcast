@@ -9,7 +9,7 @@ function getPrice(coin){
     let price = document.getElementById('price')
     ws.onmessage = (event) =>{
     let priceObj = JSON.parse(event.data)
-    price.innerText = parseFloat(priceObj.p).toFixed(2)
+    price.innerText = parseFloat(priceObj.p).toFixed(4)
 }
 }
 voices();
