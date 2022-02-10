@@ -10,7 +10,7 @@ function getPrice(coin){
     ws.onmessage = (event) =>{
     let priceObj = JSON.parse(event.data)
     price.innerText = parseFloat(priceObj.p).toFixed(4)
-}
+    }
 }
 voices();
 function voices(){
@@ -37,11 +37,23 @@ function update() {
     let value = select.options[select.selectedIndex].value;
     return value
 }
+function remove(sockets){
+    for(s in sockets)
+        sockets[s].close();
+}
 let start = 0
+let sockets = [];
 speechBtn.addEventListener("click", e =>{
     e.preventDefault();
     const coin = update()
-    getPrice(coin)
+    search = coin.toLowerCase()
+    ws = new WebSocket(`wss://stream.binance.com:9443/ws/${search}@trade`)
+    sockets.push(ws);
+    let price = document.getElementById('price')
+    ws.onmessage = (event) =>{
+        let priceObj = JSON.parse(event.data)
+        price.innerText = parseFloat(priceObj.p).toFixed(4)
+    }
     let sec = document.getElementById('interval').value
     start == 0 ? start = 1 : start =0
     let buttonvalue = document.querySelector("button")
@@ -54,11 +66,10 @@ speechBtn.addEventListener("click", e =>{
                     textToSpeech(textarea.textContent);
                 }
             }
-        }
-        if(start == 0){
+        }else{
             clearInterval(interval)
+            remove(sockets)
             buttonvalue.innerText = "Start"
-            ws.close();
         }
         }, sec*1000);
 });
